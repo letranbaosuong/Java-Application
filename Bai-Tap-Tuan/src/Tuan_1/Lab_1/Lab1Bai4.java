@@ -6,6 +6,7 @@ public class Lab1Bai4 {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Tính delta của phương trình bậc 2!");
         System.out.print("Nhập a = ");
         double a = scanner.nextDouble();
         System.out.print("Nhập b = ");

@@ -6,6 +6,7 @@ public class Lab1Bai2 {
 
     public static void main (String[] args) {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Tính chu vi, diện tích hình chữ nhật!");
         System.out.print("Nhập vào chiều dài: ");
         double dai = scanner.nextDouble();
         System.out.print("Nhập vào chiều rộng: ");
