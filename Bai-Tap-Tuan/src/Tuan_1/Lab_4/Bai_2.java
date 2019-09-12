@@ -10,8 +10,11 @@ public class Bai_2 {
         sp1.nhap();
         sp2.nhap();
 
+        System.out.println("--------------------");
         sp1.xuat();
+        System.out.println("--------------------");
         sp2.xuat();
+        System.out.println("--------------------");
     }
 
 }

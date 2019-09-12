@@ -3,7 +3,7 @@ package Tuan_1.Lab_4;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Main {
+public class Bai_5 {
 
     public static void main(String... argv) {
 
