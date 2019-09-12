@@ -8,6 +8,18 @@ public class SanPham {
     private double donGia;
     private double giamGia;
 
+    public SanPham(String tenSp, double donGia, double giamGia) {
+        this.tenSp = tenSp;
+        this.donGia = donGia;
+        this.giamGia = giamGia;
+    }
+
+    public SanPham(String tenSp, double donGia) {
+        this.tenSp = tenSp;
+        this.donGia = donGia;
+        this.giamGia = 0;
+    }
+
     public String getTenSp() {
         return tenSp;
     }
