@@ -6,6 +6,7 @@ public class Lab3Bai1 {
 
     public static void main(String... args) {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Chương trinh kiểm tra số nguyên tố");
         System.out.print("Nhập vào 1 số nguyên N = ");
         int n = scanner.nextInt();
         boolean ok = true;
@@ -15,7 +16,7 @@ public class Lab3Bai1 {
                 break;
             }
         }
-        if (ok) System.out.print(n + " là số nguyên tố");
+        if (ok && n > 1) System.out.print(n + " là số nguyên tố");
         else System.out.print(n + " không phải là số nguyên tố");
     }
 
