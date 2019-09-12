@@ -1,4 +1,4 @@
-package Tuan_1;
+package Tuan_1.Lab_3;
 
 public class Lab3Bai2 {
 

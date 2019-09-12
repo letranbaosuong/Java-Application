@@ -1,4 +1,4 @@
-package Tuan_1;
+package Tuan_1.Lab_1;
 
 import java.util.Scanner;
 
