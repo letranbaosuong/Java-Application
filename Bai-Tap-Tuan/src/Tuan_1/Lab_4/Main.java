@@ -1,13 +1,33 @@
 package Tuan_1.Lab_4;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Main {
 
     public static void main(String... argv) {
-        SanPham sp1 = new SanPham("sản phẩm 1",100000);
-        SanPham sp2=new SanPham("sản phẩm 2",3000000,3000);
 
-        sp1.xuat();
-        sp2.xuat();
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Nhập số lượng sản phẩm: ");
+        int n = Integer.parseInt(scanner.nextLine());
+        ArrayList<SanPham> sanPhamArrayList = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            SanPham sp = new SanPham();
+            System.out.println("----------------------------------");
+            System.out.println("Nhập thông tin sản phẩm thứ " + (i + 1) + " :");
+            sp.nhap();
+            sanPhamArrayList.add(sp);
+        }
+
+        System.out.println("--------------------------");
+        System.out.println("Danh sách sản phẩm :");
+        for (int i = 0; i < n; i++) {
+            System.out.println("Thông tin sản phẩm thứ " + (i + 1) + " :");
+            sanPhamArrayList.get(i).xuat();
+            System.out.println("--------------------------");
+        }
+
+        scanner.close();
     }
 
 }

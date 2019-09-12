@@ -8,6 +8,9 @@ public class SanPham {
     private double donGia;
     private double giamGia;
 
+    public SanPham() {
+    }
+
     public SanPham(String tenSp, double donGia, double giamGia) {
         this.tenSp = tenSp;
         this.donGia = donGia;
@@ -49,9 +52,9 @@ public class SanPham {
     }
 
     public void xuat() {
-        System.out.println("Tên sản phẩm: " + this.tenSp);
-        System.out.println("Đơn giá: " + this.donGia);
-        System.out.println("Giảm giá: " + this.giamGia);
+        System.out.println("Tên sản phẩm: " + getTenSp());
+        System.out.println("Đơn giá: " + getDonGia());
+        System.out.println("Giảm giá: " + getGiamGia());
         System.out.println("Thuế nhập khẩu: " + getThueNhapKhau());
     }
 
@@ -59,11 +62,11 @@ public class SanPham {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Nhập tên sản phẩm: ");
-        this.tenSp = scanner.nextLine();
+        setTenSp(scanner.nextLine());
         System.out.print("Nhập đơn giá sản phẩm: ");
-        this.donGia = Double.parseDouble(scanner.nextLine());
+        setDonGia(Double.parseDouble(scanner.nextLine()));
         System.out.print("Nhập giá giảm sản phẩm: ");
-        this.giamGia = Double.parseDouble(scanner.nextLine());
+        setGiamGia(Double.parseDouble(scanner.nextLine()));
 
     }
 }
