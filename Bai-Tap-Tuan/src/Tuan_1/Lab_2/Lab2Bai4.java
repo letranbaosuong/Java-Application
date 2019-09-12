@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Lab2Bai4 {
 
-    public static void main(String ...args) {
+    public static void main(String... args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("+--------------------------------------+");
         System.out.println("1. Giải phương trình bậc nhất");
@@ -33,9 +33,14 @@ public class Lab2Bai4 {
                 Lab2Bai4.giaiPTB2(x, y, z);
                 break;
             case 3:
-                System.out.print("Nhập vào số ký điện của tháng = ");
-                long soDien = scanner.nextLong();
-                long tien = Lab2Bai4.tinhTienDien(soDien);
+                long soKyDien;
+                do {
+                    System.out.print("Nhập vào số ký điện của tháng = ");
+                    soKyDien = scanner.nextLong();
+                    if (soKyDien <= 0)
+                        System.out.println("Số ký điện không được nhỏ hơn hoặc bằng 0");
+                } while (soKyDien <= 0);
+                long tien = Lab2Bai4.tinhTienDien(soKyDien);
                 System.out.print("Tiền điện phải trả là : " + tien);
                 break;
             case 4:
@@ -48,31 +53,32 @@ public class Lab2Bai4 {
     public static void giaiPTB1(float a, float b) {
         if (a == 0) {
             if (b == 0) {
-                System.out.println("Vô số nghiệm");
+                System.out.print("Vô số nghiệm");
             } else {
-                System.out.println("Vô nghiệm");
+                System.out.print("Vô nghiệm");
             }
-        } else {
-            System.out.printf("Phương trình có 1 nghiệm x = %.2f", (-b/a));
+        } else if (b == 0) System.out.println("x = 0");
+        else {
+            double x = -b / a;
+            System.out.printf("Có 1 nghiệm x = %.2f", x);
         }
     }
 
     public static void giaiPTB2(float a, float b, float c) {
+        double delta = Math.pow(b, 2) - 4 * a * c;
         if (a == 0) {
             giaiPTB1(b, c);
-            return;
-        }
-        double delta = Math.pow(b, 2) - 4 * a * c;
-
-        if (delta > 0) {
-            System.out.println("Phương trình có 2 nghiệm phân biệt");
-            System.out.printf("x1 = %.2f\n", (-b - Math.sqrt(delta)) / (2*a));
-            System.out.printf("x2 = %.2f\n", (-b + Math.sqrt(delta)) / (2*a));
-        } else if (delta == 0) {
-            System.out.println("Phương trinhg có 1 nghiệm kép");
-            System.out.printf("x = %.2f", -b / (2*a));
         } else {
-            System.out.println("Vô nghiệm");
+            if (delta > 0) {
+                System.out.println("Phương trình có 2 nghiệm kép");
+                System.out.printf("x1 = %.2f \n", (-b + Math.sqrt(delta)) / (2 * a));
+                System.out.printf("x2 = %.2f", (-b - Math.sqrt(delta)) / (2 * a));
+            } else if (delta == 0) {
+                System.out.println("Phương trình có nghiệm kép");
+                System.out.printf("x = %.2f", (-b / (2 * a)));
+            } else {
+                System.out.println("Phương trình vô nghiệm");
+            }
         }
     }
 
