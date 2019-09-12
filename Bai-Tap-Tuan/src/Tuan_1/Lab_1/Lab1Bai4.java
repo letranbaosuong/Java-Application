@@ -14,7 +14,11 @@ public class Lab1Bai4 {
         double c = scanner.nextDouble();
 
         double delta = Math.pow(b, 2) - 4 * a * c;
-        System.out.printf("Căn delta = %.2f", Math.sqrt(delta));
+        if (delta < 0) {
+            System.out.println("delta < 0");
+        } else {
+            System.out.printf("Căn delta = %.2f", Math.sqrt(delta));
+        }
         scanner.close();
     }
 
