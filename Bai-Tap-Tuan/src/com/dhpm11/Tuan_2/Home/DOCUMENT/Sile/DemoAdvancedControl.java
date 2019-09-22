@@ -35,12 +35,41 @@ public class DemoAdvancedControl extends JFrame {
         file.add(mnuFileNew);
         JMenuItem mnuFileOpen = new JMenuItem("Open");
         file.add(mnuFileOpen);
+        file.addSeparator();
         JMenuItem mnuFileExit = new JMenuItem("Exit");
         file.add(mnuFileExit);
+        JMenuItem mnuEditSave = new JMenuItem("Save");
+        JMenuItem mnuEditSaveAs = new JMenuItem("Save As");
+        edit.add(mnuEditSave);
+        edit.add(mnuEditSaveAs);
         mnuFileExit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                exit();
+            }
+        });
+        mnuEditSave.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, "Comming Soon");
+            }
+        });
+        mnuEditSaveAs.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, "Comming Soon");
+            }
+        });
+        mnuFileNew.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, "Comming Soon");
+            }
+        });
+        mnuFileOpen.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, "Comming Soon");
             }
         });
         setJMenuBar(menuBar);
@@ -53,6 +82,20 @@ public class DemoAdvancedControl extends JFrame {
         JButton btnExit = new JButton("Exit");
         toolBar.add(btnExit);
         add(toolBar, BorderLayout.NORTH);
+
+        btnExit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                exit();
+            }
+        });
+
+        btnNew.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, "Comming Soon");
+            }
+        });
 
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("ĐH Gia Định");
         final JTree tree = new JTree(root);
@@ -76,5 +119,12 @@ public class DemoAdvancedControl extends JFrame {
 
         JScrollPane sc = new JScrollPane(tree);
         getContentPane().add(sc);
+    }
+
+    private void exit() {
+        int ret = JOptionPane.showConfirmDialog(null, "Thoát phải không?", "Exit", JOptionPane.YES_NO_OPTION);
+        if (ret == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
     }
 }
