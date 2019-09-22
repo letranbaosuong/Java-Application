@@ -1,4 +1,4 @@
-package Tuan_1.Lab_3;
+package com.dhpm11.Tuan_1.Lab_3;
 
 import java.util.Arrays;
 import java.util.Scanner;
