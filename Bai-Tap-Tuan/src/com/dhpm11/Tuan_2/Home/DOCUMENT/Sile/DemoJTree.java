@@ -2,6 +2,8 @@ package com.dhpm11.Tuan_2.Home.DOCUMENT.Sile;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class DemoJTree extends JFrame {
     public DemoJTree(String title) {
@@ -41,6 +43,37 @@ public class DemoJTree extends JFrame {
         DefaultMutableTreeNode hhcNode = new DefaultMutableTreeNode("Hóa Hữu Cơ");
         root.add(hhcNode);
 
-        getContentPane().add(tree);
+        JScrollPane sc = new JScrollPane(tree, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+
+        getContentPane().add(sc);
+
+        tree.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+//                Object o = tree.getLastSelectedPathComponent();
+//                DefaultMutableTreeNode node = (DefaultMutableTreeNode) o;
+//                JOptionPane.showMessageDialog(null, node);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
     }
 }
