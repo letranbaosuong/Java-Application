@@ -10,9 +10,9 @@ public class Bai_5 {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Nhập số lượng sản phẩm: ");
         int n = Integer.parseInt(scanner.nextLine());
-        ArrayList<Tuan_1.Lab_4.SanPham> sanPhamArrayList = new ArrayList<>();
+        ArrayList<SanPham> sanPhamArrayList = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            Tuan_1.Lab_4.SanPham sp = new Tuan_1.Lab_4.SanPham();
+            SanPham sp = new SanPham();
             System.out.println("----------------------------------");
             System.out.println("Nhập thông tin sản phẩm thứ " + (i + 1) + " :");
             sp.nhap();
