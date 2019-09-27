@@ -253,9 +253,12 @@ public class DemoCalculator extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private float a = 0;
+    private long a = 0;
+    private float tam = 0;
+    private boolean ktra = true;
     private String phepToan = "";
 
     private void so1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_so1ActionPerformed
@@ -310,81 +313,137 @@ public class DemoCalculator extends javax.swing.JFrame {
 
     private void chiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chiaActionPerformed
         // TODO add your handling code here:
-        phepToan(chia);
+        tinhToan(chia);
     }//GEN-LAST:event_chiaActionPerformed
 
     private void nhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nhanActionPerformed
         // TODO add your handling code here:
-        phepToan(nhan);
+        tinhToan(nhan);
     }//GEN-LAST:event_nhanActionPerformed
 
     private void truActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_truActionPerformed
         // TODO add your handling code here:
-        phepToan(tru);
+        tinhToan(tru);
     }//GEN-LAST:event_truActionPerformed
 
     private void congActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_congActionPerformed
         // TODO add your handling code here:
-        phepToan(cong);
+        tinhToan(cong);
     }//GEN-LAST:event_congActionPerformed
 
     private void canB2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_canB2ActionPerformed
-        // TODO add your handling code here:
-        this.a = Long.parseLong(hienThi.getText());
-        float b = (float) Math.sqrt(a);
-        hienThi.setText(String.valueOf(b));
+        try {
+            this.a = Long.parseLong(hienThi.getText());
+            if (a > 0) {
+                float b = (float) Math.sqrt(a);
+                hienThi.setText(String.valueOf(b));
+            } else {
+                hienThi.setText("ERROR < 0 integer number");
+            }
+            myReset();
+        } catch (NumberFormatException e) {
+            tam = Float.parseFloat(hienThi.getText());
+            if (tam > 0) {
+                tam= (float) Math.sqrt(tam);
+                hienThi.setText(String.valueOf(tam));
+            } else {
+                hienThi.setText("ERROR < 0 real number");
+            }
+            myReset();
+        }
     }//GEN-LAST:event_canB2ActionPerformed
 
     private void phanTramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phanTramActionPerformed
-        // TODO add your handling code here:
-        this.a = Long.parseLong(hienThi.getText());
-        float b = (float) a / 100;
-        hienThi.setText(String.valueOf(b));
+        try {
+            this.a = Long.parseLong(hienThi.getText());
+            float b = (float) a / 100;
+            hienThi.setText(String.valueOf(b));
+            myReset();
+        } catch (NumberFormatException e) {
+            tam = Float.parseFloat(hienThi.getText());
+            tam = tam / 100;
+            hienThi.setText(String.valueOf(tam));
+            myReset();
+        }
     }//GEN-LAST:event_phanTramActionPerformed
 
     private void nghichDaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nghichDaoActionPerformed
-        // TODO add your handling code here:
-        this.a = Long.parseLong(hienThi.getText());
-        float b = (float) 1 / a;
-        hienThi.setText(String.valueOf(b));
+        try {
+            this.a = Long.parseLong(hienThi.getText());
+            a = 1 / a;
+            hienThi.setText(String.valueOf(a));
+            myReset();
+        } catch (NumberFormatException e) {
+            tam = Float.parseFloat(hienThi.getText());
+            tam = 1 / tam;
+            hienThi.setText(String.valueOf(tam));
+            myReset();
+        }
     }//GEN-LAST:event_nghichDaoActionPerformed
 
     private void xoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xoaActionPerformed
         // TODO add your handling code here:
-        a = 0;
-        phepToan = "";
+        myReset();
         hienThi.setText("0");
     }//GEN-LAST:event_xoaActionPerformed
 
     private void congTruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_congTruActionPerformed
-        // TODO add your handling code here:
-        long b = 0;
-        this.a = Long.parseLong(hienThi.getText());
-        if (a < 0) {
-            b = (long) Math.abs(a);
-        } else {
-            b = (long) (0 - a);
+        try { // so nguyen
+            this.a = Long.parseLong(hienThi.getText());
+            if (a < 0) {
+                a = Math.abs(a);
+            } else {
+                a = (0 - a);
+            }
+            hienThi.setText(String.valueOf(a));
+            myReset();
+        } catch (NumberFormatException e) { // so thuc
+            tam = Float.parseFloat(hienThi.getText());
+            if (tam < 0) {
+                tam = Math.abs(tam);
+            } else {
+                tam = (0 - tam);
+            }
+            hienThi.setText(String.valueOf(tam));
+            myReset();
         }
-        hienThi.setText(String.valueOf(b));
     }//GEN-LAST:event_congTruActionPerformed
 
     private void bangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bangActionPerformed
         // TODO add your handling code here:
         if (phepToan.length() > 0) {
-            float b = Float.parseFloat(hienThi.getText());
+            if (ktra) {
+                long b = Long.parseLong(hienThi.getText());
 
-            if (phepToan.equals("+")) {
-                float kq = a + b;
-                hienThi.setText(String.valueOf(kq));
-            } else if (phepToan.equals("-")) {
-                float kq = a - b;
-                hienThi.setText(String.valueOf(kq));
-            } else if (phepToan.equals("*")) {
-                float kq = a * b;
-                hienThi.setText(String.valueOf(kq));
-            } else if (phepToan.equals("/")) {
-                float kq = a / b;
-                hienThi.setText(String.valueOf(kq));
+                if (phepToan.equals("+")) {
+                    long kq = a + b;
+                    hienThi.setText(String.valueOf(kq));
+                } else if (phepToan.equals("-")) {
+                    long kq = a - b;
+                    hienThi.setText(String.valueOf(kq));
+                } else if (phepToan.equals("*")) {
+                    long kq = a * b;
+                    hienThi.setText(String.valueOf(kq));
+                } else if (phepToan.equals("/")) {
+                    float kq = (float) a / b;
+                    hienThi.setText(String.valueOf(kq));
+                }
+            } else {
+                long b = Long.parseLong(hienThi.getText());
+
+                if (phepToan.equals("+")) {
+                    float kq = (float) tam + b;
+                    hienThi.setText(String.valueOf(kq));
+                } else if (phepToan.equals("-")) {
+                    float kq = (float) tam - b;
+                    hienThi.setText(String.valueOf(kq));
+                } else if (phepToan.equals("*")) {
+                    float kq = (float) tam * b;
+                    hienThi.setText(String.valueOf(kq));
+                } else if (phepToan.equals("/")) {
+                    float kq = (float) tam / b;
+                    hienThi.setText(String.valueOf(kq));
+                }
             }
         }
     }//GEN-LAST:event_bangActionPerformed
@@ -462,9 +521,23 @@ public class DemoCalculator extends javax.swing.JFrame {
         }
     }
 
-    private void phepToan(JButton pToan) {
-        this.a = Long.parseLong(this.hienThi.getText());
-        this.phepToan = pToan.getText();
-        this.hienThi.setText("0");
+    private void tinhToan(JButton pToan) {
+        try {
+            this.a = Long.parseLong(this.hienThi.getText());
+            this.phepToan = pToan.getText();
+            this.hienThi.setText("0");
+            this.ktra = true;
+        } catch (NumberFormatException e) {
+            tam = Float.parseFloat(this.hienThi.getText());
+            this.phepToan = pToan.getText();
+            this.hienThi.setText("0");
+            this.ktra = false;
+        }
+    }
+
+    private void myReset() {
+        a = 0;
+        tam = 0;
+        phepToan = "";
     }
 }
