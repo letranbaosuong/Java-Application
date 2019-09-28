@@ -224,6 +224,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Gi&#x1ea3;i    "/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGiaiActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnThoat">
               <Properties>
@@ -237,6 +240,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="X&#xf3;a   "/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXoaActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -277,7 +283,7 @@
                               <Component id="pnChonPhepTinh" alignment="1" pref="113" max="32767" attributes="0"/>
                               <Component id="txtb" alignment="1" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="txtKetQua" alignment="1" min="-2" pref="113" max="-2" attributes="0"/>
+                          <Component id="txtkq" alignment="1" min="-2" pref="113" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="24" max="32767" attributes="0"/>
                   </Group>
@@ -300,7 +306,7 @@
                       <Component id="pnChonPhepTinh" min="-2" pref="60" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="txtKetQua" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtkq" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblKetQua" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
@@ -346,6 +352,7 @@
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                       <ComponentRef name="buttonGroup1"/>
                     </Property>
+                    <Property name="selected" type="boolean" value="true"/>
                     <Property name="text" type="java.lang.String" value="C&#x1ed9;ng"/>
                   </Properties>
                 </Component>
@@ -380,7 +387,7 @@
                 <Property name="text" type="java.lang.String" value="K&#x1ebf;t qu&#x1ea3;:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtKetQua">
+            <Component class="javax.swing.JTextField" name="txtkq">
             </Component>
           </SubComponents>
         </Container>

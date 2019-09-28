@@ -5,6 +5,8 @@
  */
 package com.dhpm11.demo;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Suong
@@ -50,7 +52,7 @@ public class DemoCongTruNhanChia extends javax.swing.JFrame {
         radNhan = new javax.swing.JRadioButton();
         radChia = new javax.swing.JRadioButton();
         lblKetQua = new javax.swing.JLabel();
-        txtKetQua = new javax.swing.JTextField();
+        txtkq = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cộng - Trừ - Nhân - Chia");
@@ -136,6 +138,11 @@ public class DemoCongTruNhanChia extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)), "Chọn tác vụ:"));
 
         btnGiai.setText("Giải    ");
+        btnGiai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGiaiActionPerformed(evt);
+            }
+        });
 
         btnThoat.setText("Thoát");
         btnThoat.addActionListener(new java.awt.event.ActionListener() {
@@ -145,6 +152,11 @@ public class DemoCongTruNhanChia extends javax.swing.JFrame {
         });
 
         btnXoa.setText("Xóa   ");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -182,6 +194,7 @@ public class DemoCongTruNhanChia extends javax.swing.JFrame {
         pnChonPhepTinh.setLayout(new java.awt.GridLayout(2, 2));
 
         buttonGroup1.add(radCong);
+        radCong.setSelected(true);
         radCong.setText("Cộng");
         pnChonPhepTinh.add(radCong);
 
@@ -215,7 +228,7 @@ public class DemoCongTruNhanChia extends javax.swing.JFrame {
                         .addComponent(txta)
                         .addComponent(pnChonPhepTinh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
                         .addComponent(txtb, javax.swing.GroupLayout.Alignment.TRAILING))
-                    .addComponent(txtKetQua, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtkq, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -233,7 +246,7 @@ public class DemoCongTruNhanChia extends javax.swing.JFrame {
                 .addComponent(pnChonPhepTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtKetQua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtkq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblKetQua))
                 .addGap(10, 10, 10))
         );
@@ -256,8 +269,58 @@ public class DemoCongTruNhanChia extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoatActionPerformed
-        // TODO add your handling code here:
+        int ret = JOptionPane.showConfirmDialog(null, "Muốn thoát hả?", "Thoát", JOptionPane.YES_NO_OPTION);
+        if (ret == JOptionPane.YES_NO_OPTION) {
+            System.exit(0);
+        }
     }//GEN-LAST:event_btnThoatActionPerformed
+
+    private void btnGiaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGiaiActionPerformed
+        String text = txta.getText().trim();
+        double a = 0, b = 0;
+        try {
+            a = Double.parseDouble(text);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Nhập sai định dạng!");
+            txta.selectAll();
+            txta.requestFocus();
+            return;
+        }
+        text = txtb.getText().trim();
+        try {
+            b = Double.parseDouble(text);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Nhập sai định dạng!");
+            txtb.selectAll();
+            txtb.requestFocus();
+            return;
+        }
+
+        double kq = 0;
+        if (radCong.isSelected()) {
+            kq = (a + b);
+        } else if (radTru.isSelected()) {
+            kq = (a - b);
+        } else if (radNhan.isSelected()) {
+            kq = (a * b);
+        } else if (radChia.isSelected()) {
+            if (b != 0) {
+                kq = (a * 1.0 / b * 1.0);
+            } else {
+                JOptionPane.showMessageDialog(null, "b phải khác 0 !");
+                txtb.selectAll();
+                txtb.requestFocus();
+            }
+        }
+        txtkq.setText(kq + "");
+    }//GEN-LAST:event_btnGiaiActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        txta.setText("");
+        txtb.setText("");
+        txtkq.setText("");
+        txta.requestFocus();
+    }//GEN-LAST:event_btnXoaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -316,8 +379,8 @@ public class DemoCongTruNhanChia extends javax.swing.JFrame {
     private javax.swing.JRadioButton radCong;
     private javax.swing.JRadioButton radNhan;
     private javax.swing.JRadioButton radTru;
-    private javax.swing.JTextField txtKetQua;
     private javax.swing.JTextField txta;
     private javax.swing.JTextField txtb;
+    private javax.swing.JTextField txtkq;
     // End of variables declaration//GEN-END:variables
 }
