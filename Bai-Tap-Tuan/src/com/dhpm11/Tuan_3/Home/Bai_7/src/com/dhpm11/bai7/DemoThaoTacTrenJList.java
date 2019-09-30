@@ -54,6 +54,7 @@ public class DemoThaoTacTrenJList extends javax.swing.JFrame {
         jList = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Demo JList");
         setResizable(false);
 
         jPanel1.setLayout(new java.awt.BorderLayout());
