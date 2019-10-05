@@ -11,8 +11,20 @@ package com.dhpm11.tuan4;
  */
 public class ThongTin {
 
-    public ThongTin(int id, String type, String remarks, String email, String contact, String address, String name) {
-        this.type = type;
+    private boolean books;
+    private boolean newspapers;
+    private boolean journalsandmagazines;
+    private String remarks;
+    private String email;
+    private String contact;
+    private String address;
+    private String name;
+    private int id;
+
+    public ThongTin(boolean books, boolean newspapers, boolean journalsandmagazines, String remarks, String email, String contact, String address, String name, int id) {
+        this.books = books;
+        this.newspapers = newspapers;
+        this.journalsandmagazines = journalsandmagazines;
         this.remarks = remarks;
         this.email = email;
         this.contact = contact;
@@ -21,16 +33,28 @@ public class ThongTin {
         this.id = id;
     }
 
-    ThongTin() {
-        
+    public boolean isBooks() {
+        return books;
     }
 
-    public String getType() {
-        return type;
+    public void setBooks(boolean books) {
+        this.books = books;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public boolean isNewspapers() {
+        return newspapers;
+    }
+
+    public void setNewspapers(boolean newspapers) {
+        this.newspapers = newspapers;
+    }
+
+    public boolean isJournalsandmagazines() {
+        return journalsandmagazines;
+    }
+
+    public void setJournalsandmagazines(boolean journalsandmagazines) {
+        this.journalsandmagazines = journalsandmagazines;
     }
 
     public String getRemarks() {
@@ -81,15 +105,6 @@ public class ThongTin {
         this.id = id;
     }
 
-    private String type;
-    private String remarks;
-    private String email;
-    private String contact;
-    private String address;
-    private String name;
-    private int id;
-
-    void setInt(int aInt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ThongTin() {
     }
 }

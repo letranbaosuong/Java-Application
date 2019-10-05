@@ -15,20 +15,20 @@ import java.util.logging.Logger;
  *
  * @author Suong
  */
-public class JDBCConnection {
+public class MSSQLConnection {
 
     public static Connection getJDBCConnection() {
-        final String url = "jdbc:mysql://localhost:3306/dbbooks?useUnicode=true&characterEncoding=UTF-8";
-        final String user = "root";
-        final String password = "";
-//        final String url = "jdbc:sqlserver://localhost:1433;databaseName=DBEmployee";
-//        final String user = "sa";
-//        final String password = "suong123";
+//        final String url = "jdbc:mysql://localhost:3306/dbbooks?useUnicode=true&characterEncoding=UTF-8";
+//        final String user = "root";
+//        final String password = "";
+        final String url = "jdbc:sqlserver://localhost:1433;databaseName=DBEmployee";
+        final String user = "sa";
+        final String password = "suong123";
 
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+//            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             return DriverManager.getConnection(url, user, password);
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(JDBCConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;

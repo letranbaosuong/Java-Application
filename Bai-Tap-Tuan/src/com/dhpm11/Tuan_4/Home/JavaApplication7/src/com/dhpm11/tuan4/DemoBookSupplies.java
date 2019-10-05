@@ -37,21 +37,7 @@ public class DemoBookSupplies extends javax.swing.JFrame {
 //        tblThongTin.getColumnModel().getColumn(8).setPreferredWidth(300);
 //        tblThongTin.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 
-        DefaultTableModel defaultTableModel = new DefaultTableModel();
-        tblThongTin.setModel(defaultTableModel);
-        defaultTableModel.addColumn("Supplier ID");
-        defaultTableModel.addColumn("Supplier ID");
-        defaultTableModel.addColumn("Type");
-        defaultTableModel.addColumn("Address");
-        defaultTableModel.addColumn("Contact No");
-        defaultTableModel.addColumn("EmailID");
-        defaultTableModel.addColumn("Remarks");
-
-        ArrayList<ThongTin> infos = QueryPrepareStatement.getInfo();
-
-        for (ThongTin info : infos) {
-            defaultTableModel.addRow(new Object[]{info.getId(), info.getName(), info.getType(), info.getAddress(), info.getContact(), info.getEmail(), info.getRemarks()});
-        }
+        loadData();
     }
 
     /**
@@ -113,16 +99,15 @@ public class DemoBookSupplies extends javax.swing.JFrame {
         scTable.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         tblThongTin.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
-        tblThongTin.setForeground(new java.awt.Color(255, 255, 255));
         tblThongTin.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Supplier ID", "Supplier Name", "Type", "Address", "Contact No", "Email ID", "Remarks"
+                "Supplier ID", "Supplier Name", "Books", "News Papers", "Journals and Magazines", "Address", "Contact No", "Email ID", "Remarks"
             }
         ));
         scTable.setViewportView(tblThongTin);
@@ -364,15 +349,22 @@ public class DemoBookSupplies extends javax.swing.JFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         try {
-            String type = isCheckbox();
+//            String type = isCheckbox();
+            boolean books = false;
+            books = ckbBooks.isSelected();
+            boolean newspapers = false;
+            newspapers = ckbNewsPapers.isSelected();
+            boolean journalsandmagazines = false;
+            journalsandmagazines = ckbJournalsandMagazines.isSelected();
             String remarks = txtRemarks.getText().trim();
             String email = txtEmailID.getText().trim();
             String contact = txtContactNo.getText().trim();
             String address = txtAddress.getText().trim();
             String name = txtSupplierName.getText().trim();
             int id = Integer.parseInt(txtSupplierID.getText().trim());
-            QueryPrepareStatement.insertRecords(id, name, type, address, contact, email, remarks);
+            QueryPrepareStatement.insertRecords(id, name, books, newspapers, journalsandmagazines, address, contact, email, remarks);
             JOptionPane.showMessageDialog(null, "Thêm thành công");
+            loadData();
         } catch (SQLException ex) {
             Logger.getLogger(DemoBookSupplies.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NumberFormatException e) {
@@ -382,15 +374,22 @@ public class DemoBookSupplies extends javax.swing.JFrame {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         try {
-            String type = isCheckbox();
+//            String type = isCheckbox();
+            boolean books = false;
+            books = ckbBooks.isSelected();
+            boolean newspapers = false;
+            newspapers = ckbNewsPapers.isSelected();
+            boolean journalsandmagazines = false;
+            journalsandmagazines = ckbJournalsandMagazines.isSelected();
             String remarks = txtRemarks.getText().trim();
             String email = txtEmailID.getText().trim();
             String contact = txtContactNo.getText().trim();
             String address = txtAddress.getText().trim();
             String name = txtSupplierName.getText().trim();
             int id = Integer.parseInt(txtSupplierID.getText().trim());
-            QueryPrepareStatement.updateRecords(id, name, type, address, contact, email, remarks);
+            QueryPrepareStatement.updateRecords(id, name, books, newspapers, journalsandmagazines, address, contact, email, remarks);
             JOptionPane.showMessageDialog(null, "Cập nhật thành công");
+            loadData();
         } catch (SQLException ex) {
             Logger.getLogger(DemoBookSupplies.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NumberFormatException e) {
@@ -403,6 +402,7 @@ public class DemoBookSupplies extends javax.swing.JFrame {
             int id = Integer.parseInt(txtSupplierID.getText().trim());
             QueryPrepareStatement.deleteRecords(id);
             JOptionPane.showMessageDialog(null, "Xóa thành công");
+            loadData();
         } catch (SQLException ex) {
             Logger.getLogger(DemoBookSupplies.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -491,5 +491,37 @@ public class DemoBookSupplies extends javax.swing.JFrame {
         }
 
         return str;
+    }
+
+    private void loadData() throws SQLException {
+        DefaultTableModel defaultTableModel = new DefaultTableModel();
+        defaultTableModel.setRowCount(0);
+        tblThongTin.setModel(defaultTableModel);
+        defaultTableModel.addColumn("Supplier ID");
+        defaultTableModel.addColumn("Supplier ID");
+        defaultTableModel.addColumn("Books");
+        defaultTableModel.addColumn("News Papers");
+        defaultTableModel.addColumn("Journals and Magazines");
+        defaultTableModel.addColumn("Address");
+        defaultTableModel.addColumn("Contact No");
+        defaultTableModel.addColumn("EmailID");
+        defaultTableModel.addColumn("Remarks");
+
+        ArrayList<ThongTin> infos = QueryPrepareStatement.getInfo();
+        Object rowData[] = new Object[7];
+        for (ThongTin info : infos) {
+            System.out.println(info.getId() + info.getName() + info.isBooks() + info.getAddress() + info.getContact() + info.getEmail() + info.getRemarks());
+            defaultTableModel.addRow(new Object[]{info.getId(), info.getName(), info.isBooks(), info.isNewspapers(), info.isJournalsandmagazines(), info.getAddress(), info.getContact(), info.getEmail(), info.getRemarks()});
+//            rowData[0] = info.getId();
+//            rowData[1] = info.getName();
+//            rowData[2] = String.valueOf(info.isBooks());
+//            rowData[3] = String.valueOf(info.isNewspapers());
+//            rowData[4] = String.valueOf(info.isJournalsandmagazines());
+//            rowData[5] = info.getAddress();
+//            rowData[6] = info.getContact();
+//            rowData[7] = info.getEmail();
+//            rowData[8] = info.getRemarks();
+//            defaultTableModel.addRow(rowData);
+        }
     }
 }

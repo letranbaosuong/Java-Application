@@ -19,34 +19,38 @@ import java.util.ArrayList;
  */
 public class QueryPrepareStatement {
 
-    public static void insertRecords(int id, String name, String type, String address, String contact, String email, String remarks) throws SQLException {
+    public static void insertRecords(int id, String name, boolean books, boolean newpapers, boolean journalsandmagazine, String address, String contact, String email, String remarks) throws SQLException {
         Connection connection = JDBCConnection.getJDBCConnection();
 
-        String sql = "INSERT INTO `booksuppliers`(`ID`, `Name`, `Type`, `Address`, `ContactNo`, `EmailID`, `Remarks`) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO `booksuppliers`(`ID`, `Name`, `Books`, `NewsPapers`, `JournalsandMagazines`, `Address`, `ContactNo`, `EmailID`, `Remarks`) VALUES (?,?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, id);
         preparedStatement.setString(2, name);
-        preparedStatement.setString(3, type);
-        preparedStatement.setString(4, address);
-        preparedStatement.setString(5, contact);
-        preparedStatement.setString(6, email);
-        preparedStatement.setString(7, remarks);
+        preparedStatement.setBoolean(3, books);
+        preparedStatement.setBoolean(4, newpapers);
+        preparedStatement.setBoolean(5, journalsandmagazine);
+        preparedStatement.setString(6, address);
+        preparedStatement.setString(7, contact);
+        preparedStatement.setString(8, email);
+        preparedStatement.setString(9, remarks);
         int rs = preparedStatement.executeUpdate();
         System.out.println(rs);
     }
 
-    public static void updateRecords(int id, String name, String type, String address, String contact, String email, String remarks) throws SQLException {
+    public static void updateRecords(int id, String name, boolean books, boolean newpapers, boolean journalsandmagazine, String address, String contact, String email, String remarks) throws SQLException {
         Connection connection = JDBCConnection.getJDBCConnection();
 
-        String sql = "UPDATE `booksuppliers` SET `Name`=?,`Type`=?,`Address`=?,`ContactNo`=?,`EmailID`=?,`Remarks`=? WHERE ID = ?";
+        String sql = "UPDATE `booksuppliers` SET `Name`=?,`Books`=?,`NewsPapers`=?,`JournalsandMagazines`=?,`Address`=?,`ContactNo`=?,`EmailID`=?,`Remarks`=? WHERE `ID`=?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, name);
-        preparedStatement.setString(2, type);
-        preparedStatement.setString(3, address);
-        preparedStatement.setString(4, contact);
-        preparedStatement.setString(5, email);
-        preparedStatement.setString(6, remarks);
-        preparedStatement.setInt(7, id);
+        preparedStatement.setBoolean(2, books);
+        preparedStatement.setBoolean(3, newpapers);
+        preparedStatement.setBoolean(4, journalsandmagazine);
+        preparedStatement.setString(5, address);
+        preparedStatement.setString(6, contact);
+        preparedStatement.setString(7, email);
+        preparedStatement.setString(8, remarks);
+        preparedStatement.setInt(9, id);
         int rs = preparedStatement.executeUpdate();
         System.out.println(rs);
     }
@@ -65,18 +69,20 @@ public class QueryPrepareStatement {
         ArrayList<ThongTin> infos = new ArrayList<>();
         Connection connection = JDBCConnection.getJDBCConnection();
 
-        String sql = "SELECT `ID`, `Name`, `Type`, `Address`, `ContactNo`, `EmailID`, `Remarks` FROM `booksuppliers` WHERE 1";
+        String sql = "SELECT `ID`, `Name`, `Books`, `NewsPapers`, `JournalsandMagazines`, `Address`, `ContactNo`, `EmailID`, `Remarks` FROM `booksuppliers` WHERE 1";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         ResultSet rs = preparedStatement.executeQuery();
         while (rs.next()) {
             ThongTin info = new ThongTin();
             info.setId(rs.getInt("ID"));
             info.setName(rs.getString("Name"));
-            info.setName(rs.getString("Type"));
-            info.setName(rs.getString("Address"));
-            info.setName(rs.getString("ContactNo"));
-            info.setName(rs.getString("EmailID"));
-            info.setName(rs.getString("Remarks"));
+            info.setBooks(rs.getBoolean("Books"));
+            info.setNewspapers(rs.getBoolean("NewsPapers"));
+            info.setJournalsandmagazines(rs.getBoolean("JournalsandMagazines"));
+            info.setAddress(rs.getString("Address"));
+            info.setContact(rs.getString("ContactNo"));
+            info.setEmail(rs.getString("EmailID"));
+            info.setRemarks(rs.getString("Remarks"));
 
             infos.add(info);
         }
