@@ -5,22 +5,35 @@
  */
 package com.dhpm11.tuan4;
 
+import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 /**
  *
  * @author Suong
  */
 public class DemoBookSupplies extends javax.swing.JFrame {
+
+    DefaultTableModel defaultTableModel = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int i, int i1) {
+            return false;
+        }
+    };
 
     /**
      * Creates new form DemoBookSupplies
@@ -37,7 +50,32 @@ public class DemoBookSupplies extends javax.swing.JFrame {
 //        tblThongTin.getColumnModel().getColumn(8).setPreferredWidth(300);
 //        tblThongTin.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 
+        tblThongTin.setModel(defaultTableModel);
+        defaultTableModel.addColumn("Supplier ID");
+        defaultTableModel.addColumn("Supplier Name");
+        defaultTableModel.addColumn("Books");
+        defaultTableModel.addColumn("News Papers");
+        defaultTableModel.addColumn("Journals and Magazines");
+        defaultTableModel.addColumn("Address");
+        defaultTableModel.addColumn("Contact No");
+        defaultTableModel.addColumn("EmailID");
+        defaultTableModel.addColumn("Remarks");
         loadData();
+//        JTableHeader header = tblThongTin.getTableHeader();
+//        header.setBackground(Color.BLACK);
+//        header.setForeground(new Color(70, 3, 121));
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
+        headerRenderer.setBackground(new Color(70, 3, 121));
+        headerRenderer.setForeground(Color.WHITE);
+
+        for (int i = 0; i < tblThongTin.getModel().getColumnCount(); i++) {
+            tblThongTin.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
+        }
+        
+        tblThongTin.setBackground(Color.GREEN);
+        
+        ImageIcon img=new ImageIcon("C:\\Users\\Suong\\Desktop\\hoctap\\nam3\\Java-Application\\Bai-Tap-Tuan\\src\\com\\dhpm11\\Tuan_4\\Home\\JavaApplication7\\src\\com\\dhpm11\\tuan4\\person-male.png");
+        setIconImage(img.getImage());
     }
 
     /**
@@ -110,6 +148,17 @@ public class DemoBookSupplies extends javax.swing.JFrame {
                 "Supplier ID", "Supplier Name", "Books", "News Papers", "Journals and Magazines", "Address", "Contact No", "Email ID", "Remarks"
             }
         ));
+        tblThongTin.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblThongTin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblThongTinMouseClicked(evt);
+            }
+        });
+        tblThongTin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tblThongTinKeyReleased(evt);
+            }
+        });
         scTable.setViewportView(tblThongTin);
 
         javax.swing.GroupLayout pnBottomLayout = new javax.swing.GroupLayout(pnBottom);
@@ -118,7 +167,7 @@ public class DemoBookSupplies extends javax.swing.JFrame {
             pnBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnBottomLayout.createSequentialGroup()
                 .addGap(11, 11, 11)
-                .addComponent(scTable, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+                .addComponent(scTable, javax.swing.GroupLayout.DEFAULT_SIZE, 697, Short.MAX_VALUE)
                 .addGap(11, 11, 11))
         );
         pnBottomLayout.setVerticalGroup(
@@ -335,16 +384,7 @@ public class DemoBookSupplies extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
-        txtSupplierID.setText("");
-        txtSupplierName.setText("");
-        ckbBooks.setSelected(false);
-        ckbJournalsandMagazines.setSelected(false);
-        ckbNewsPapers.setSelected(false);
-        txtAddress.setText("");
-        txtContactNo.setText("");
-        txtEmailID.setText("");
-        txtRemarks.setText("");
-        txtSupplierID.requestFocus();
+        removeTxt();
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
@@ -403,10 +443,29 @@ public class DemoBookSupplies extends javax.swing.JFrame {
             QueryPrepareStatement.deleteRecords(id);
             JOptionPane.showMessageDialog(null, "Xóa thành công");
             loadData();
+            removeTxt();
         } catch (SQLException ex) {
             Logger.getLogger(DemoBookSupplies.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void tblThongTinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblThongTinMouseClicked
+        int selectedRow = tblThongTin.getSelectedRow();
+
+        displayDetails(selectedRow);
+
+        if (evt.getClickCount() == 2) {
+            int selectedCol = tblThongTin.getSelectedColumn();
+            JOptionPane.showMessageDialog(null, defaultTableModel.getValueAt(selectedRow, selectedCol));
+        }
+    }//GEN-LAST:event_tblThongTinMouseClicked
+
+    private void tblThongTinKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblThongTinKeyReleased
+        if (evt.getKeyCode() == KeyEvent.VK_UP || evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            int selectedRow = tblThongTin.getSelectedRow();
+            displayDetails(selectedRow);
+        }
+    }//GEN-LAST:event_tblThongTinKeyReleased
 
     /**
      * @param args the command line arguments
@@ -494,18 +553,8 @@ public class DemoBookSupplies extends javax.swing.JFrame {
     }
 
     private void loadData() throws SQLException {
-        DefaultTableModel defaultTableModel = new DefaultTableModel();
+
         defaultTableModel.setRowCount(0);
-        tblThongTin.setModel(defaultTableModel);
-        defaultTableModel.addColumn("Supplier ID");
-        defaultTableModel.addColumn("Supplier ID");
-        defaultTableModel.addColumn("Books");
-        defaultTableModel.addColumn("News Papers");
-        defaultTableModel.addColumn("Journals and Magazines");
-        defaultTableModel.addColumn("Address");
-        defaultTableModel.addColumn("Contact No");
-        defaultTableModel.addColumn("EmailID");
-        defaultTableModel.addColumn("Remarks");
 
         ArrayList<ThongTin> infos = QueryPrepareStatement.getInfo();
         Object rowData[] = new Object[7];
@@ -523,5 +572,40 @@ public class DemoBookSupplies extends javax.swing.JFrame {
 //            rowData[8] = info.getRemarks();
 //            defaultTableModel.addRow(rowData);
         }
+    }
+
+    private void displayDetails(int selectedRow) {
+        int id = (int) defaultTableModel.getValueAt(selectedRow, 0);
+        String name = (String) defaultTableModel.getValueAt(selectedRow, 1);
+        boolean books = (boolean) defaultTableModel.getValueAt(selectedRow, 2);
+        boolean newspapers = (boolean) defaultTableModel.getValueAt(selectedRow, 3);
+        boolean journalsandmagazines = (boolean) defaultTableModel.getValueAt(selectedRow, 4);
+        String address = (String) defaultTableModel.getValueAt(selectedRow, 5);
+        String contactno = (String) defaultTableModel.getValueAt(selectedRow, 6);
+        String emalid = (String) defaultTableModel.getValueAt(selectedRow, 7);
+        String remarks = (String) defaultTableModel.getValueAt(selectedRow, 8);
+
+        txtSupplierID.setText(String.valueOf(id));
+        txtSupplierName.setText(name);
+        ckbBooks.setSelected(books);
+        ckbNewsPapers.setSelected(newspapers);
+        ckbJournalsandMagazines.setSelected(journalsandmagazines);
+        txtAddress.setText(address);
+        txtContactNo.setText(contactno);
+        txtEmailID.setText(emalid);
+        txtRemarks.setText(remarks);
+    }
+
+    private void removeTxt() {
+        txtSupplierID.setText("");
+        txtSupplierName.setText("");
+        ckbBooks.setSelected(false);
+        ckbJournalsandMagazines.setSelected(false);
+        ckbNewsPapers.setSelected(false);
+        txtAddress.setText("");
+        txtContactNo.setText("");
+        txtEmailID.setText("");
+        txtRemarks.setText("");
+        txtSupplierID.requestFocus();
     }
 }
