@@ -3,14 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package demostudentmanagerment;
+package com.dhpm11.tuan5;
 
+import demostudentmanagerment.*;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import com.mysql.jdbc.Connection;
 import java.sql.DriverManager;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -23,6 +27,59 @@ public class DemoStudentManagerment extends javax.swing.JFrame {
      */
     public DemoStudentManagerment() {
         initComponents();
+        showEmployee();
+    }
+
+    private List<Employee> getAllEmployee() {
+        List<Employee> listAllE = new ArrayList<Employee>();
+
+        Connection conn = null;
+        String url = "jdbc:mysql://localhost:3306/dbemployee?useUnicode=true&characterEncoding=UTF-8";
+        String user = "root";
+        String pass = "";
+        String sql = "select * from employee";
+        ResultSet reEmployee;
+        Statement stmt;
+
+        try {
+            conn = (Connection) DriverManager.getConnection(url, user, pass);
+            stmt = conn.createStatement();
+            reEmployee = stmt.executeQuery(sql);
+
+            Employee employee = null;
+            while (reEmployee.next()) {
+                employee = new Employee();
+                employee.setName(reEmployee.getString("name"));
+                employee.setAddress(reEmployee.getString("address"));
+                employee.setGender(reEmployee.getString("gender"));
+                employee.setKnowdge(reEmployee.getString("knowlege"));
+                employee.setSubject(reEmployee.getString("subject"));
+                listAllE.add(employee);
+            }
+            conn.close();
+            reEmployee.close();
+            stmt.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DemoStudentManagerment.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return listAllE;
+    }
+    
+    private void showEmployee(){
+        List<Employee> listAllE=getAllEmployee();
+        DefaultTableModel model=(DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        Object []row=new Object[5];
+        for(int i=0;i<listAllE.size();i++){
+            row[0]=listAllE.get(i).getName();
+            row[1]=listAllE.get(i).getAddress();
+            row[2]=listAllE.get(i).getGender();
+            row[3]=listAllE.get(i).getKnowdge();
+            row[4]=listAllE.get(i).getSubject();
+            model.addRow(row);
+        }
     }
 
     /**
@@ -90,13 +147,10 @@ public class DemoStudentManagerment extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Name", "Address", "Gender", "Knowledge", "Subject"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -192,10 +246,11 @@ public class DemoStudentManagerment extends javax.swing.JFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
+        showEmployee();
         Connection conn = null;
-        
+
         String url, user, password, sql = "", strName = "", strAddress = "", strGender = "", strKnowledge = "", strSubject = "";
-        int row=0;
+        int row = 0;
 //        url = "jdbc:mysql://localhost:3306/dbemployee";
 //        user = "root";
 //        password = "";
@@ -241,12 +296,12 @@ public class DemoStudentManagerment extends javax.swing.JFrame {
 //        } catch (SQLException ex) {
 //            Logger.getLogger(DemoStudentManagerment.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-        
+
         try {
-            sql = "INSERT INTO `employee` (`name`, `address`, `gender`, `knowlege`, `subject`) VALUES (?, ?, ?, ?, ?)";
+            sql = "INSERT INTO `employee` (`id`, `name`, `address`, `gender`, `knowlege`, `subject`) VALUES (null,?, ?, ?, ?, ?)";
             Class.forName("com.mysql.jdbc.Driver");
-//            conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/dbemployee", "root", "");
-            conn = (Connection) DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=DBemployee;integratedSecurity=true;", "sa", "suong123");
+            conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/dbemployee?useUnicode=true&characterEncoding=UTF-8", "root", "");
+//            conn = (Connection) DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=DBemployee;integratedSecurity=true;", "sa", "suong123");
             System.out.println("kết nối r");
             preStmt = conn.prepareStatement(sql);
             preStmt.setString(1, strName);
@@ -261,7 +316,6 @@ public class DemoStudentManagerment extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println(e);
         }
-
 
 //        Connection conn = null;
 //        String url = "", user = "", password = "";
@@ -336,6 +390,7 @@ public class DemoStudentManagerment extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(DemoStudentManagerment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
