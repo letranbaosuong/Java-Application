@@ -18,9 +18,13 @@ import java.util.logging.Logger;
 public class JDBCConnection {
 
     public static Connection getJDBConnection() {
-        final String url = "jdbc:mysql://localhost:3306/hello";
-        final String user = "root";
-        final String password = "";
+//        final String url = "jdbc:mysql://localhost:3306/hello";
+//        final String user = "root";
+//        final String password = "";
+        
+        final String url = "jdbc:mysql://myshoponlinelaptopdienthoai.000webhostapp.com/id9372209_myshoponlinelaptopdienthoai";
+        final String user = "id9372209_suongrau";
+        final String password = "suongrau2019";
 
         try {
             Class.forName("com.mysql.jdbc.Driver");

@@ -22,14 +22,13 @@ public class Client {
 //    io.socket.client.Socket socket = manager.socket("/my-namespace");
 //
 //    socket.connect ();
-
     public static void main(String[] args) throws UnknownHostException,
             IOException, ClassNotFoundException {
         // Instancia classe
         Client client = new Client();
 
         // Conexão socket TCP
-        String ip = "127.0.0.1";
+        String ip = "localhost";
         int port = 6969;
         client.socketConnect(ip, port);
 
@@ -40,6 +39,9 @@ public class Client {
         System.out.println("Sending: " + message);
         String returnStr = client.echo(message);
         System.out.println("Receiving: " + returnStr);
+        
+        // In main()
+        client.getSocket().close();
     }
 
     // Conecta com o socket
@@ -60,6 +62,10 @@ public class Client {
             out.println(message);
             String returnStr = in.readLine();
             return returnStr;
+
+            // In echo()
+//            out.close();
+//            in.close();
 
         } catch (IOException e) {
             e.printStackTrace();

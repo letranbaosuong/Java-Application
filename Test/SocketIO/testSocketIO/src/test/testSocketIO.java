@@ -140,7 +140,7 @@ public class testSocketIO extends javax.swing.JFrame {
 
                 PrintWriter out = new PrintWriter(getSocket().getOutputStream(), true);
                 BufferedReader in = new BufferedReader(new InputStreamReader(getSocket().getInputStream()));
-                out.println(led);
+                out.println("do 1");
                 String retorno = in.readLine();
             } else {
                 arrayLed.put(0, false);
@@ -217,7 +217,7 @@ public class testSocketIO extends javax.swing.JFrame {
         });
 
         String ip = "localhost";
-        int port = 1111;
+        int port = 6969;
 
         Socket socket = new Socket(ip, port);
         
@@ -227,6 +227,7 @@ public class testSocketIO extends javax.swing.JFrame {
 //        } catch (JSONException e) {
 //            e.printStackTrace();
 //        }
+        socket.close();
 
     }
 
