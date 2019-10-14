@@ -75,7 +75,7 @@ public class ClientUI extends javax.swing.JFrame {
         }
 
         // writes and receives the message
-        String message = "message123 con sadkfdsfdsf";
+        String message = "message123";
 
         // Escreve mensagem
         System.out.println("Sending: " + message);
