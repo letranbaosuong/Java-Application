@@ -5,7 +5,10 @@
  */
 package test;
 
+import io.socket.client.IO;
+import static io.socket.client.IO.socket;
 import io.socket.client.Socket;
+import java.net.URISyntaxException;
 
 /**
  *
@@ -14,10 +17,17 @@ import io.socket.client.Socket;
 public class test {
     public Socket mSocket;
 //    mSocket
-
-    private static class mSocket {
-
-        public mSocket() {
+    {
+        try {
+            mSocket = IO.socket("http://192.168.1.6:3000/");
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
         }
     }
+    
+    mSocket.emit("android_gui_dieu_khien_led", led);
+
+    
+    
+    
 }
